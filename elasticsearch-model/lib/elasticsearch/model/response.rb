@@ -28,7 +28,7 @@ module Elasticsearch
         #
         def response
           @response ||= begin
-            Hashie::Mash.new(search.execute!)
+            HashWrapper.new(search.execute!)
           end
         end
 
@@ -63,13 +63,13 @@ module Elasticsearch
         # Returns the statistics on shards
         #
         def shards
-          Hashie::Mash.new(response['_shards'])
+          HashWrapper.new(response['_shards'])
         end
 
         # Returns a Hashie::Mash of the aggregations
         #
         def aggregations
-          response['aggregations'] ? Hashie::Mash.new(response['aggregations']) : nil
+          response['aggregations'] ? HashWrapper.new(response['aggregations']) : nil
         end
       end
     end
